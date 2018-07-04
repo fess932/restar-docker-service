@@ -1,0 +1,41 @@
+version: '3'
+services:
+
+  # nginx:
+  #   image: nginx:alpine
+  #   depends_on:
+  #     - node
+  #     - mongo
+  #   ports:
+  #     - "80:80"
+  #   networks:
+  #     - backend
+
+  node:
+    image: node:alpine
+    volumes:
+      - ./src:/code
+    working_dir: /code
+    depends_on:
+      - mongo
+    ports:
+      - "80:8080"
+    networks:
+      - backend
+    entrypoint:
+      - npm
+      - run
+      - dev
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - ./db:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
+
+networks:
+  # frontend:
+  backend:
