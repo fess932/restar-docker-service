@@ -25,7 +25,7 @@ services:
     entrypoint:
       - npm
       - run
-      - dev
+      - start
 
   mongo:
     image: mongo:latest
